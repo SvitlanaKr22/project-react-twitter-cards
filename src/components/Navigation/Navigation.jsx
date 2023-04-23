@@ -10,9 +10,6 @@ export const Navigation = () => {
           <Home fontSize="inherit" />
         </IconButton>
       </Link>
-      {/* <Button sx={{ fontSize: '1rem' }}>
-        <Link to="/tweets">Tweets</Link>
-      </Button> */}
       <Button sx={{ fontSize: '1rem' }}>
         <Link to="/tweets">Tweets</Link>
       </Button>
