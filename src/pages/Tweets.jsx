@@ -1,4 +1,4 @@
-import { useState, useEffect, useLocation, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { fetchUsers } from 'services/fetchUsers';
 import { TweetCardList } from 'components/TweetCardList/TweetCardList';
 import { Box, Button } from '@mui/material';
@@ -10,8 +10,13 @@ export default function Tweets() {
   const [users, setUsers] = useState([]);
   // const location = useLocation();
   // const backLinkHref = useRef(location.state?.from ?? '/');
+  const isFirstRender = useRef(true);
 
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
     const controller = new AbortController();
 
     fetchUsers(page, controller)
@@ -27,22 +32,11 @@ export default function Tweets() {
           console.log('prevState', prevState);
           return [...prevState, ...users];
         });
-        //setUsers([...users]);
-        // setUsers(prevState => [
-        //   ...prevState,
-        //   ...data.map(({ user, avatar, id, followers, tweets }) => ({
-        //     user,
-        //     avatar,
-        //     followers,
-        //     tweets,
-        //     id,
-        //   })),
-        // ]);
       })
       .catch(error => console.error(error));
-    // return () => {
-    //   controller.abort();
-    // };
+    return () => {
+      controller.abort();
+    };
   }, [page]);
 
   const handleLoadMore = () => setPage(prevPage => prevPage + 1);
