@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/415.835291be.chunk.js","mappings":"yMAAe,SAASA,IACtB,OACE,0BACE,0CAGL,C","sources":["pages/Home.jsx"],"sourcesContent":["export default function Home() {\n  return (\n    <div>\n      <p>Twitter cards</p>\n    </div>\n  );\n}\n"],"names":["Home"],"sourceRoot":""}
