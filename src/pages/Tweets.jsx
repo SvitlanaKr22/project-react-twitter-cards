@@ -8,6 +8,16 @@ import { Link } from 'react-router-dom';
 export default function Tweets() {
   const [page, setPage] = useState(1);
   const [users, setUsers] = useState([]);
+
+  const handleFollow = id => {
+    const userFollow = users.find(user => user.id === id);
+    const upUsers = users.map(user => {
+      if (user.id === userFollow.id) user.isFollow = !user.isFollow;
+      return user;
+    });
+    setUsers([...upUsers]);
+  };
+
   // const location = useLocation();
   // const backLinkHref = useRef(location.state?.from ?? '/');
   // const isFirstRender = useRef(true);
@@ -27,6 +37,7 @@ export default function Tweets() {
           followers,
           tweets,
           id,
+          isFollow: false,
         }));
         setUsers(prevState => {
           console.log('prevState', prevState);
@@ -43,13 +54,12 @@ export default function Tweets() {
 
   return (
     <Box>
-      <p>Tweets ???</p>
       <Button>
         {/* <Link to={backLinkHref.current}>Go back</Link> */}
         <Link to="/">Go back</Link>
       </Button>
       <Filter />
-      <TweetCardList users={users} />
+      <TweetCardList users={users} handleFollow={handleFollow} />
       {users.length !== 0 && (
         <Button onClick={handleLoadMore}>LOAD MORE</Button>
       )}
