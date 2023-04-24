@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { fetchUsers } from 'services/fetchUsers';
 import { TweetCardList } from 'components/TweetCardList/TweetCardList';
 import { Box, Button } from '@mui/material';
@@ -10,13 +10,13 @@ export default function Tweets() {
   const [users, setUsers] = useState([]);
   // const location = useLocation();
   // const backLinkHref = useRef(location.state?.from ?? '/');
-  const isFirstRender = useRef(true);
+  // const isFirstRender = useRef(true);
 
   useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
+    // if (isFirstRender.current) {
+    //   isFirstRender.current = false;
+    //   return;
+    // }
     const controller = new AbortController();
 
     fetchUsers(page, controller)
