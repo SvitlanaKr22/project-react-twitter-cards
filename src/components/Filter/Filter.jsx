@@ -3,30 +3,29 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { useState } from 'react';
 
-export const Filter = () => {
-  const [age, setAge] = useState('');
-
-  const handleChange = event => {
-    setAge(event.target.value);
-    console.log(event.target.value);
-  };
-
+export const Filter = ({ filter, handleChange }) => {
   return (
-    <Box sx={{ minWidth: 120 }}>
+    <Box
+      sx={{
+        minWidth: 120,
+        fontSize: '24px',
+        marginBottom: '30px',
+        marginTop: '30px',
+      }}
+    >
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Show</InputLabel>
+        <InputLabel id="select-label">Show</InputLabel>
         <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age}
-          label="Age"
+          labelId="select-label"
+          id="select"
+          value={filter}
+          label="Filter"
           onChange={handleChange}
         >
-          <MenuItem value={20}>All</MenuItem>
-          <MenuItem value={20}>Follow</MenuItem>
-          <MenuItem value={30}>Followings show all</MenuItem>
+          <MenuItem value={'all'}>All</MenuItem>
+          <MenuItem value={'follow'}>Follow</MenuItem>
+          <MenuItem value={'following'}>Followings show all</MenuItem>
         </Select>
       </FormControl>
     </Box>

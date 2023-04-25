@@ -9,7 +9,10 @@ export const TweetCard = ({
 }) => {
   const bgColor = isFollow ? '#5CD3A8' : '#EBD8FF';
   const nameButton = isFollow ? 'Following' : 'Follow';
-
+  //let followersUI = String(followers);
+  // if (followersUI.length > 3) followersUI = followersUI.splice(3, 0, ',');
+  // console.log('bbbb', typeof followersUI);
+  // console.log(followersUI.length);
   return (
     <Box
       sx={{
