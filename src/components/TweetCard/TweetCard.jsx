@@ -1,4 +1,5 @@
 import { Box, Button, Typography, Avatar } from '@mui/material';
+import { ReactComponent as Logo } from './Logo.svg';
 
 import picture from './picture21.png';
 
@@ -9,10 +10,13 @@ export const TweetCard = ({
 }) => {
   const bgColor = isFollow ? '#5CD3A8' : '#EBD8FF';
   const nameButton = isFollow ? 'Following' : 'Follow';
-  //let followersUI = String(followers);
-  // if (followersUI.length > 3) followersUI = followersUI.splice(3, 0, ',');
-  // console.log('bbbb', typeof followersUI);
-  // console.log(followersUI.length);
+  const followersUI =
+    String(followers).length > 3
+      ? String(followers).slice(0, 3) +
+        ',' +
+        String(followers).slice(3, String(followers).length)
+      : String(followers);
+
   return (
     <Box
       sx={{
@@ -29,6 +33,12 @@ export const TweetCard = ({
         alignItems: 'center',
       }}
     >
+      <Box
+        sx={{ position: 'absolute', left: '15px', top: '20px', zIndex: '200' }}
+      >
+        <Logo />
+      </Box>
+
       <Box
         sx={{
           position: 'absolute',
@@ -88,7 +98,7 @@ export const TweetCard = ({
           {tweets}&nbsp;tweets
         </Typography>
         <Typography sx={{ marginBottom: '26px', fontSize: '20px' }}>
-          {followers}
+          {followersUI}
           &nbsp;followers
         </Typography>
         <Button

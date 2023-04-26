@@ -7,10 +7,10 @@ export const Navigation = () => {
     <Nav>
       <Link to="/">
         <IconButton size="large">
-          <Home fontSize="inherit" />
+          <Home fontSize="inherit" sx={{ color: '#d2c8e7' }} />
         </IconButton>
       </Link>
-      <Button sx={{ fontSize: '1rem' }}>
+      <Button sx={{ fontSize: '1rem', color: '#d2c8e7' }}>
         <Link to="/tweets">Tweets</Link>
       </Button>
     </Nav>

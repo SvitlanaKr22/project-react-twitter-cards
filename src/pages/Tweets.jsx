@@ -1,27 +1,28 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { fetchUsers } from 'services/fetchUsers';
 import { TweetCardList } from 'components/TweetCardList/TweetCardList';
 import { Box, Button } from '@mui/material';
 import { Filter } from '../components/Filter/Filter';
 import { NavLink } from 'react-router-dom';
+import { nanoid } from 'nanoid';
 
-const LS_CARDUSER = 'cardUsers';
-// const LS_FILTER = 'filter';
+const LS_USERS = 'users';
 
 export default function Tweets() {
+  const isFirstRender = useRef(true);
+  const isLSFirstUsers = useRef(false);
+
   const getFromLocalStorage = () => {
-    const stateFromStorage = JSON.parse(localStorage.getItem(LS_CARDUSER));
+    const stateFromStorage = JSON.parse(localStorage.getItem(LS_USERS));
     if (stateFromStorage === null) return [];
+    isLSFirstUsers.current = true;
     return stateFromStorage;
   };
 
-  // const getFromLocalStorageFilter = () =>
-  //   JSON.parse(localStorage.getItem(LS_FILTER));
-
   const [page, setPage] = useState(1);
-  const [users, setUsers] = useState([]);
-  const [filter, setFilter] = useState('');
-  const [cardUsers, setCardUsers] = useState(getFromLocalStorage);
+  const [users, setUsers] = useState(getFromLocalStorage);
+  const [filter, setFilter] = useState('all');
+  const [cardUsers, setCardUsers] = useState([]);
 
   const handleFollow = id => {
     const userFollow = users.find(user => user.id === id);
@@ -60,18 +61,16 @@ export default function Tweets() {
   };
   // const location = useLocation();
   // const backLinkHref = useRef(location.state?.from ?? '/');
-  // const isFirstRender = useRef(true);
 
   useEffect(() => {
-    localStorage.setItem(LS_CARDUSER, JSON.stringify(cardUsers));
-    // localStorage.setItem(LS_FILTER, JSON.stringify(filter));
-  }, [cardUsers]);
+    localStorage.setItem(LS_USERS, JSON.stringify(users));
+  }, [users]);
 
   useEffect(() => {
-    // if (isFirstRender.current) {
-    //   isFirstRender.current = false;
-    //   return;
-    // }
+    if (isFirstRender.current && isLSFirstUsers.current) {
+      isFirstRender.current = false;
+      return;
+    }
 
     const controller = new AbortController();
 
@@ -82,11 +81,10 @@ export default function Tweets() {
           avatar,
           followers,
           tweets,
-          id,
+          id: nanoid(),
           isFollow: false,
         }));
         setUsers(prevState => {
-          console.log('prevState', prevState);
           return [...prevState, ...users];
         });
       })
@@ -99,7 +97,11 @@ export default function Tweets() {
   useEffect(selectCard, [filter, users]);
 
   return (
-    <Box>
+    <Box
+      sx={{
+        backgroundColor: '#d2c8e7',
+      }}
+    >
       <Button>
         {/* <Link to={backLinkHref.current}>Go back</Link> */}
         <NavLink

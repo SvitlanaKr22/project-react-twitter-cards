@@ -12,6 +12,8 @@ export const Filter = ({ filter, handleChange }) => {
         fontSize: '24px',
         marginBottom: '30px',
         marginTop: '30px',
+        marginLeft: '24px',
+        marginRight: '24px',
       }}
     >
       <FormControl fullWidth>
