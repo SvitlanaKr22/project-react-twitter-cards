@@ -12,8 +12,9 @@ export const Filter = ({ filter, handleChange }) => {
         fontSize: '24px',
         marginBottom: '30px',
         marginTop: '30px',
-        marginLeft: '24px',
-        marginRight: '24px',
+        marginLeft: '36px',
+        marginRight: '36px',
+        // backgroundColor: 'tomato',
       }}
     >
       <FormControl fullWidth>
@@ -24,6 +25,7 @@ export const Filter = ({ filter, handleChange }) => {
           value={filter}
           label="Filter"
           onChange={handleChange}
+          sx={{ backgroundColor: '#EBD8FF' }}
         >
           <MenuItem value={'all'}>All</MenuItem>
           <MenuItem value={'follow'}>Follow</MenuItem>
